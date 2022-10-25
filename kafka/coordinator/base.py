@@ -990,6 +990,7 @@ class HeartbeatThread(threading.Thread):
                 # foreground thread has stalled in between calls to
                 # poll(), so we explicitly leave the group.
                 log.warning('Heartbeat poll expired, leaving group')
+                log.error('Heartbeat timed out after 5 minutes')
                 exit() # This is 5 minute timeout
                 # self.coordinator.maybe_leave_group()
 
