@@ -3,6 +3,7 @@ from __future__ import absolute_import, division
 import abc
 import copy
 import logging
+import sys
 import threading
 import time
 import weakref
@@ -991,7 +992,7 @@ class HeartbeatThread(threading.Thread):
                 # poll(), so we explicitly leave the group.
                 log.warning('Heartbeat poll expired, leaving group')
                 log.error('Heartbeat timed out after 5 minutes')
-                exit() # This is 5 minute timeout
+                sys.exit() # This is 5 minute timeout
                 # self.coordinator.maybe_leave_group()
 
             elif not self.coordinator.heartbeat.should_heartbeat():
