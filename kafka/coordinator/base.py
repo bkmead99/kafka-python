@@ -3,6 +3,7 @@ from __future__ import absolute_import, division
 import abc
 import copy
 import logging
+import sys
 import threading
 import time
 import weakref
@@ -990,7 +991,9 @@ class HeartbeatThread(threading.Thread):
                 # foreground thread has stalled in between calls to
                 # poll(), so we explicitly leave the group.
                 log.warning('Heartbeat poll expired, leaving group')
-                self.coordinator.maybe_leave_group()
+                # self.coordinator.maybe_leave_group()
+                # exit if heartbeat poll expires (should not take 5 minutes)
+                raise Errors.KafkaError('Heartbeat poll expired')
 
             elif not self.coordinator.heartbeat.should_heartbeat():
                 # poll again after waiting for the retry backoff in case
